@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Contagem Regressiva</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+
+    .countdown {
+      font-size: 3em;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .time-box {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      min-width: 100px;
+    }
+
+    .label {
+      font-size: 0.5em;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contagem regressiva para a gente se ver!</h1>
+  <div class="countdown">
+    <div class="time-box"><div id="days">00</div><div class="label">Dias</div></div>
+    <div class="time-box"><div id="hours">00</div><div class="label">Horas</div></div>
+    <div class="time-box"><div id="minutes">00</div><div class="label">Minutos</div></div>
+    <div class="time-box"><div id="seconds">00</div><div class="label">Segundos</div></div>
+  </div>
+
+  <script>
+    function atualizarContagem() {
+      const agora = new Date();
+      const ano = agora.getFullYear();
+      const mes = agora.getMonth(); // Mês atual (0-11)
+      const destino = new Date(ano, mes, 23, 20, 0, 0); // dia 23 às 20h00
+
+      // Se já passou do dia 23 às 20h deste mês, ajusta para o próximo mês
+      if (agora > destino) {
+        destino.setMonth(mes + 1);
+      }
+
+      const diferenca = destino - agora;
+
+      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diferenca / (1000 * 60)) % 60);
+      const segundos = Math.floor((diferenca / 1000) % 60);
+
+      document.getElementById("days").textContent = String(dias).padStart(2, '0');
+      document.getElementById("hours").textContent = String(horas).padStart(2, '0');
+      document.getElementById("minutes").textContent = String(minutos).padStart(2, '0');
+      document.getElementById("seconds").textContent = String(segundos).padStart(2, '0');
+    }
+
+    setInterval(atualizarContagem, 1000);
+    atualizarContagem(); // inicializa na primeira execução
+  </script>
+</body>
+</html>
+
+
